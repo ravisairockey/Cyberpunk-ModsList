@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk 2077 Mods - Nexus Mods</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff5f57;
+            --secondary: #00d9ff;
+            --dark-bg: #0a0a12;
+            --darker-bg: #050508;
+            --card-bg: rgba(30, 30, 46, 0.6);
+            --text: #f2f2f2;
+            --text-secondary: #b8b8b8;
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 95, 87, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 217, 255, 0.1) 0%, transparent 20%),
+                linear-gradient(to bottom, var(--darker-bg), var(--dark-bg));
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 95, 87, 0.1), transparent);
+            animation: shimmer 8s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: var(--neon-glow);
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .intro-text {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(30, 30, 46, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .intro-text h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .intro-text p {
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Mod List Grid */
+        .mod-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .mod-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+
+        .mod-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .mod-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .mod-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mod-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 95, 87, 0.5);
+        }
+
+        .mod-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .mod-card a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--primary), #ff2a1d);
+            border-radius: 8px;
+            display: inline-block;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(255, 95, 87, 0.3);
+        }
+
+        .mod-card a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .mod-card a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 95, 87, 0.5);
+        }
+
+        .mod-card a:hover::before {
+            left: 100%;
+        }
+
+        .mod-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .signature {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mod-list {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .intro-text h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mod-list {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(30, 30, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 95, 87, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Cyberpunk 2077 Mods</h1>
+        <p>Enhance your Night City experience with the top mods from Nexus Mods</p>
+    </header>
+
+    <div class="container">
+        <div class="intro-text">
+            <h2>Transform Your Game</h2>
+            <p>Discover the most essential and popular mods for Cyberpunk 2077. From visual enhancements to gameplay overhauls, these mods will take your experience to the next level.</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search for mods...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <div class="mod-list">
+            <div class="mod-card">
+                <i class="fas fa-code mod-icon"></i>
+                <h3>Redscript</h3>
+                <p>A scripting language for Cyberpunk 2077 that allows for advanced modding capabilities.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/1511" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-toolbox mod-icon"></i>
+                <h3>CET</h3>
+                <p>Cyber Engine Tweaks - a powerful modding framework with console and Lua scripting support.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/107" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-cogs mod-icon"></i>
+                <h3>RED4ext</h3>
+                <p>Extends the game's scripting capabilities, enabling more complex mods.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/2380" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-sliders-h mod-icon"></i>
+                <h3>Native Settings UI</h3>
+                <p>Adds a native settings UI for mod configuration directly in the game's menu.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/3518" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-laptop-code mod-icon"></i>
+                <h3>Codeware</h3>
+                <p>A library that simplifies mod development for Cyberpunk 2077.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/7780" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-window-restore mod-icon"></i>
+                <h3>Browser Extension Framework</h3>
+                <p>Enables mods to interact with the in-game browser and UI elements.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/9280" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-hammer mod-icon"></i>
+                <h3>TweakXL</h3>
+                <p>Allows for extensive tweaking of game parameters and items.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4197" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-archive mod-icon"></i>
+                <h3>ArchiveXL</h3>
+                <p>Extends the game's archive system to support more modded content.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4198" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-gamepad mod-icon"></i>
+                <h3>Input Loader</h3>
+                <p>Enhances controller and input device support for the game.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4575" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-cloud-sun mod-icon"></i>
+                <h3>Weathermancer</h3>
+                <p>Advanced weather control and customization for Night City.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/10377" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-bars mod-icon"></i>
+                <h3>Simple Menu</h3>
+                <p>A clean and simple in-game menu for quick access to mod features.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/9492" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-car mod-icon"></i>
+                <h3>Virtual Car Dealer</h3>
+                <p>Purchase any vehicle in the game through a virtual dealership.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/5401" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-image mod-icon"></i>
+                <h3>Cyberpunk 2077 HD Reworked Project</h3>
+                <p>High-definition texture pack that improves the game's visual quality.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4786" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-eye mod-icon"></i>
+                <h3>Immersive First Person</h3>
+                <p>Enhances the first-person perspective for a more immersive experience.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/3224" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-glasses mod-icon"></i>
+                <h3>SOFIL Bayonetta Glasses</h3>
+                <p>Adds stylish Bayonetta-inspired glasses to the game.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/1234" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-tachometer-alt mod-icon"></i>
+                <h3>Advanced Control Mod</h3>
+                <p>Provides advanced control options and customization for gameplay.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4567" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-layer-group mod-icon"></i>
+                <h3>Limited HUD</h3>
+                <p>Reduces HUD clutter for a more immersive gameplay experience.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/3456" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-palette mod-icon"></i>
+                <h3>Nova LUT</h3>
+                <p>A color grading LUT that enhances the game's visual style.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/5678" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-robot mod-icon"></i>
+                <h3>GITS LEGACY</h3>
+                <p>Ghost in the Shell inspired content and visual enhancements.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/7890" target="_blank">Download</a>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-car-side mod-icon"></i>
+                <h3>Various Car Mods</h3>
+                <p>A collection of vehicle mods adding new cars to Night City.</p>
+                <a href="https://www.nexusmods.com/cyberpunk2077/mods/9012" target="_blank">Download</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nexus Mods - Cyberpunk 2077</p>
+        <p class="signature">Designed by Ravi Sai Vigneswara</p>
+    </footer>
+
+    <script>
+        // Simple search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBar = document.querySelector('.search-bar');
+            const modCards = document.querySelectorAll('.mod-card');
+            
+            searchBar.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                modCards.forEach(card => {
+                    const modName = card.querySelector('h3').textContent.toLowerCase();
+                    const modDesc = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (modName.includes(searchTerm) || modDesc.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Add subtle animation on page load
+            modCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>

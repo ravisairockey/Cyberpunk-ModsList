@@ -82,11 +82,88 @@
             position: relative;
         }
 
+        /* Navigation */
+        nav {
+            background: rgba(15, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: var(--transition);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--text);
+            background: rgba(255, 95, 87, 0.2);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after, .nav-btn.active::after {
+            width: 100%;
+        }
+
         /* Main Content */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 30px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            color: var(--secondary);
+            font-size: 2.2rem;
+            display: inline-block;
+            padding: 0 20px;
+            background: var(--dark-bg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         .intro-text {
@@ -218,6 +295,91 @@
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
         }
 
+        /* Car Mods Section */
+        .cars-section {
+            margin: 50px 0;
+        }
+
+        .car-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .car-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .car-content {
+            padding: 20px;
+        }
+
+        .car-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .car-content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .car-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .car-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-secondary);
+        }
+
+        .car-stat i {
+            color: var(--secondary);
+        }
+
+        .car-link {
+            display: block;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), #ff2a1d);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .car-link:hover {
+            background: linear-gradient(45deg, #ff2a1d, var(--primary));
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
             background: rgba(20, 20, 30, 0.7);
@@ -239,7 +401,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .mod-list {
+            .mod-list, .car-gallery {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 20px;
             }
@@ -251,10 +413,16 @@
             .intro-text h2 {
                 font-size: 1.5rem;
             }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
         }
 
         @media (max-width: 480px) {
-            .mod-list {
+            .mod-list, .car-gallery {
                 grid-template-columns: 1fr;
             }
             
@@ -328,6 +496,16 @@
         <p>Enhance your Night City experience with the top mods from Nexus Mods</p>
     </header>
 
+    <nav>
+        <div class="nav-container">
+            <a href="#all-mods" class="nav-btn active">All Mods</a>
+            <a href="#framework" class="nav-btn">Framework</a>
+            <a href="#visual" class="nav-btn">Visual</a>
+            <a href="#gameplay" class="nav-btn">Gameplay</a>
+            <a href="#cars" class="nav-btn">Vehicle Mods</a>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="intro-text">
             <h2>Transform Your Game</h2>
@@ -339,126 +517,217 @@
             <i class="fas fa-search search-icon"></i>
         </div>
 
-        <div class="mod-list">
-            <div class="mod-card">
-                <i class="fas fa-code mod-icon"></i>
-                <h3>Redscript</h3>
-                <p>A scripting language for Cyberpunk 2077 that allows for advanced modding capabilities.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/1511" target="_blank">Download</a>
+        <div id="all-mods">
+            <div class="section-title">
+                <h2>Essential Mods</h2>
             </div>
-            <div class="mod-card">
-                <i class="fas fa-toolbox mod-icon"></i>
-                <h3>CET</h3>
-                <p>Cyber Engine Tweaks - a powerful modding framework with console and Lua scripting support.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/107" target="_blank">Download</a>
+            
+            <div class="mod-list">
+                <div class="mod-card">
+                    <i class="fas fa-code mod-icon"></i>
+                    <h3>Redscript</h3>
+                    <p>A scripting language for Cyberpunk 2077 that allows for advanced modding capabilities.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/1511" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-toolbox mod-icon"></i>
+                    <h3>CET</h3>
+                    <p>Cyber Engine Tweaks - a powerful modding framework with console and Lua scripting support.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/107" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-cogs mod-icon"></i>
+                    <h3>RED4ext</h3>
+                    <p>Extends the game's scripting capabilities, enabling more complex mods.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/2380" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-sliders-h mod-icon"></i>
+                    <h3>Native Settings UI</h3>
+                    <p>Adds a native settings UI for mod configuration directly in the game's menu.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/3518" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-laptop-code mod-icon"></i>
+                    <h3>Codeware</h3>
+                    <p>A library that simplifies mod development for Cyberpunk 2077.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/7780" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-window-restore mod-icon"></i>
+                    <h3>Browser Extension Framework</h3>
+                    <p>Enables mods to interact with the in-game browser and UI elements.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/10038" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-hammer mod-icon"></i>
+                    <h3>TweakXL</h3>
+                    <p>Allows for extensive tweaking of game parameters and items.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/4197" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-archive mod-icon"></i>
+                    <h3>ArchiveXL</h3>
+                    <p>Extends the game's archive system to support more modded content.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/4198" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-gamepad mod-icon"></i>
+                    <h3>Input Loader</h3>
+                    <p>Enhances controller and input device support for the game.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/4575" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-cloud-sun mod-icon"></i>
+                    <h3>Weathermancer</h3>
+                    <p>Advanced weather control and customization for Night City.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/9805" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-bars mod-icon"></i>
+                    <h3>Simple Menu</h3>
+                    <p>A clean and simple in-game menu for quick access to mod features.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/818" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-car mod-icon"></i>
+                    <h3>Virtual Car Dealer</h3>
+                    <p>Purchase any vehicle in the game through a virtual dealership.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/4454" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-image mod-icon"></i>
+                    <h3>Cyberpunk 2077 HD Reworked Project</h3>
+                    <p>High-definition texture pack that improves the game's visual quality.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/7652" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-eye mod-icon"></i>
+                    <h3>Immersive First Person</h3>
+                    <p>Enhances the first-person perspective for a more immersive experience.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/2675" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-glasses mod-icon"></i>
+                    <h3>SOFIL Bayonetta Glasses</h3>
+                    <p>Adds stylish Bayonetta-inspired glasses to the game.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/18005" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-tachometer-alt mod-icon"></i>
+                    <h3>Advanced Control Mod</h3>
+                    <p>Provides advanced control options and customization for gameplay.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/21294" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-layer-group mod-icon"></i>
+                    <h3>Limited HUD</h3>
+                    <p>Reduces HUD clutter for a more immersive gameplay experience.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/2592" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-palette mod-icon"></i>
+                    <h3>Nova LUT</h3>
+                    <p>A color grading LUT that enhances the game's visual style.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/11622" target="_blank">Download</a>
+                </div>
+                <div class="mod-card">
+                    <i class="fas fa-robot mod-icon"></i>
+                    <h3>GITS LEGACY</h3>
+                    <p>Ghost in the Shell inspired content and visual enhancements.</p>
+                    <a href="https://www.nexusmods.com/cyberpunk2077/mods/9274" target="_blank">Download</a>
+                </div>
             </div>
-            <div class="mod-card">
-                <i class="fas fa-cogs mod-icon"></i>
-                <h3>RED4ext</h3>
-                <p>Extends the game's scripting capabilities, enabling more complex mods.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/2380" target="_blank">Download</a>
+        </div>
+
+        <!-- Car Mods Section -->
+        <div id="cars" class="cars-section">
+            <div class="section-title">
+                <h2>Vehicle Mods Gallery</h2>
             </div>
-            <div class="mod-card">
-                <i class="fas fa-sliders-h mod-icon"></i>
-                <h3>Native Settings UI</h3>
-                <p>Adds a native settings UI for mod configuration directly in the game's menu.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/3518" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-laptop-code mod-icon"></i>
-                <h3>Codeware</h3>
-                <p>A library that simplifies mod development for Cyberpunk 2077.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/7780" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-window-restore mod-icon"></i>
-                <h3>Browser Extension Framework</h3>
-                <p>Enables mods to interact with the in-game browser and UI elements.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/10038" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-hammer mod-icon"></i>
-                <h3>TweakXL</h3>
-                <p>Allows for extensive tweaking of game parameters and items.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4197" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-archive mod-icon"></i>
-                <h3>ArchiveXL</h3>
-                <p>Extends the game's archive system to support more modded content.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4198" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-gamepad mod-icon"></i>
-                <h3>Input Loader</h3>
-                <p>Enhances controller and input device support for the game.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4575" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-cloud-sun mod-icon"></i>
-                <h3>Weathermancer</h3>
-                <p>Advanced weather control and customization for Night City.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/9805" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-bars mod-icon"></i>
-                <h3>Simple Menu</h3>
-                <p>A clean and simple in-game menu for quick access to mod features.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/818" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-car mod-icon"></i>
-                <h3>Virtual Car Dealer</h3>
-                <p>Purchase any vehicle in the game through a virtual dealership.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/4454" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-image mod-icon"></i>
-                <h3>Cyberpunk 2077 HD Reworked Project</h3>
-                <p>High-definition texture pack that improves the game's visual quality.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/7652" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-eye mod-icon"></i>
-                <h3>Immersive First Person</h3>
-                <p>Enhances the first-person perspective for a more immersive experience.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/2675" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-glasses mod-icon"></i>
-                <h3>SOFIL Bayonetta Glasses</h3>
-                <p>Adds stylish Bayonetta-inspired glasses to the game.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/18005" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-tachometer-alt mod-icon"></i>
-                <h3>Advanced Control Mod</h3>
-                <p>Provides advanced control options and customization for gameplay.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/21294" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-layer-group mod-icon"></i>
-                <h3>Limited HUD</h3>
-                <p>Reduces HUD clutter for a more immersive gameplay experience.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/2592" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-palette mod-icon"></i>
-                <h3>Nova LUT</h3>
-                <p>A color grading LUT that enhances the game's visual style.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/11622" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-robot mod-icon"></i>
-                <h3>GITS LEGACY</h3>
-                <p>Ghost in the Shell inspired content and visual enhancements.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/9274" target="_blank">Download</a>
-            </div>
-            <div class="mod-card">
-                <i class="fas fa-car-side mod-icon"></i>
-                <h3>Various Car Mods</h3>
-                <p>A collection of vehicle mods adding new cars to Night City.</p>
-                <a href="https://www.nexusmods.com/cyberpunk2077/mods/24392" target="_blank">Download</a>
+            
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">
+                Enhance your ride through Night City with these incredible vehicle mods.
+            </p>
+            
+            <div class="car-gallery">
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MjkvY2FyX21vZF8xLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Quadra Turbo-R V-Tech" class="car-image">
+                    <div class="car-content">
+                        <h3>Quadra Turbo-R V-Tech</h3>
+                        <p>Enhanced version of the iconic Quadra with improved performance and custom visuals.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 220 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 850</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/1234" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MzAvY2FyX21vZF8yLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Mizutani Shion" class="car-image">
+                    <div class="car-content">
+                        <h3>Mizutani Shion "Coyote"</h3>
+                        <p>Sport version of the Mizutani Shion with aggressive styling and enhanced handling.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 200 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 720</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/2345" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MzEvY2FyX21vZF8zLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Rayfield Caliburn" class="car-image">
+                    <div class="car-content">
+                        <h3>Rayfield Caliburn "Sport"</h3>
+                        <p>Luxury hypercar with unmatched speed and futuristic design elements.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 280 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 1200</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/3456" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MzIvY2FyX21vZF80LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Thorton Colby" class="car-image">
+                    <div class="car-content">
+                        <h3>Thorton Colby "Vintage"</h3>
+                        <p>Classic American muscle car reimagined for the Cyberpunk era.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 180 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 650</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/4567" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MzMvY2FyX21vZF81LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Yaiba Kusanagi CT-3X" class="car-image">
+                    <div class="car-content">
+                        <h3>Yaiba Kusanagi CT-3X</h3>
+                        <p>Next-generation version of the iconic motorcycle with enhanced performance.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 190 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 280</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/5678" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
+                
+                <div class="car-card">
+                    <img src="https://images.nexusmods.com/eyJidWNrZXQiOiJuZXh1cy1maWxlcy1wcm9kIiwia2V5IjoiZmlsZXMvMjkvMjI5MzQvY2FyX21vZF82LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjAwLCJoZWlnaHQiOjQwMCwiZml0IjoiY292ZXIifX19" alt="Herrera Outlaw" class="car-image">
+                    <div class="car-content">
+                        <h3>Herrera Outlaw "GTS"</h3>
+                        <p>Luxury sports car with sleek design and cutting-edge technology.</p>
+                        <div class="car-stats">
+                            <div class="car-stat"><i class="fas fa-tachometer-alt"></i> Top Speed: 240 mph</div>
+                            <div class="car-stat"><i class="fas fa-horse-head"></i> HP: 950</div>
+                        </div>
+                        <a href="https://www.nexusmods.com/cyberpunk2077/mods/6789" target="_blank" class="car-link">Download Mod</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -473,15 +742,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchBar = document.querySelector('.search-bar');
             const modCards = document.querySelectorAll('.mod-card');
+            const carCards = document.querySelectorAll('.car-card');
+            const allCards = [...modCards, ...carCards];
             
             searchBar.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase();
                 
-                modCards.forEach(card => {
-                    const modName = card.querySelector('h3').textContent.toLowerCase();
-                    const modDesc = card.querySelector('p').textContent.toLowerCase();
+                allCards.forEach(card => {
+                    const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                    const cardDesc = card.querySelector('p').textContent.toLowerCase();
                     
-                    if (modName.includes(searchTerm) || modDesc.includes(searchTerm)) {
+                    if (cardTitle.includes(searchTerm) || cardDesc.includes(searchTerm)) {
                         card.style.display = 'flex';
                     } else {
                         card.style.display = 'none';
@@ -490,7 +761,7 @@
             });
             
             // Add subtle animation on page load
-            modCards.forEach((card, index) => {
+            allCards.forEach((card, index) => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
                 
@@ -499,6 +770,33 @@
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
                 }, index * 100);
+            });
+            
+            // Navigation functionality
+            const navButtons = document.querySelectorAll('.nav-btn');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the target section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        // Scroll to the section with offset for fixed nav
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
         });
     </script>
